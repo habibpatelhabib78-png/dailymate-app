@@ -1,0 +1,7 @@
+{
+  "name": "DailyMate - All-in-One Utility",
+  "description": "A comprehensive daily utility application featuring notes, to-do lists, reminders, calculator, calendar, and a secure document locker, optimized for mobile and offline use.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

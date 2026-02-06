@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DailyMate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dm-bg: #f8fafc;
+      --dm-card: #ffffff;
+      --dm-text: #0f172a;
+      --dm-text-muted: #64748b;
+      --dm-border: #f1f5f9;
+      --dm-accent: #2563eb;
+      --dm-accent-muted: #eff6ff;
+      --dm-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .theme-dark {
+      --dm-bg: #0f172a;
+      --dm-card: #1e293b;
+      --dm-text: #f8fafc;
+      --dm-text-muted: #94a3b8;
+      --dm-border: #334155;
+      --dm-accent: #3b82f6;
+      --dm-accent-muted: rgba(59, 130, 246, 0.1);
+      --dm-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      background-color: var(--dm-bg);
+      color: var(--dm-text);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+  </style>
+  <script>
+    // Prevent flash of unstyled theme
+    (function() {
+      try {
+        const saved = localStorage.getItem('dm_settings');
+        if (saved) {
+          const settings = JSON.parse(saved);
+          if (settings.darkMode) {
+            document.documentElement.classList.add('theme-dark');
+          } else {
+            document.documentElement.classList.add('theme-light');
+          }
+        } else {
+          document.documentElement.classList.add('theme-light');
+        }
+      } catch (e) {}
+    })();
+
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dm-bg': 'var(--dm-bg)',
+            'dm-card': 'var(--dm-card)',
+            'dm-text': 'var(--dm-text)',
+            'dm-muted': 'var(--dm-text-muted)',
+            'dm-border': 'var(--dm-border)',
+            'dm-accent': 'var(--dm-accent)',
+            'dm-accent-muted': 'var(--dm-accent-muted)',
+          },
+          boxShadow: {
+            'dm': 'var(--dm-shadow)',
+          }
+        }
+      }
+    };
+  </script>
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@^19.2.4",
+      "react/": "https://esm.sh/react@^19.2.4/",
+      "react-dom": "https://esm.sh/react-dom@^19.2.4",
+      "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+      "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+      "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+    }
+  }
+  </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="transition-colors duration-300">
+  <div id="root"></div>
+  <audio id="alarm-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('SW Registered'))
+          .catch(err => console.log('SW Registration failed', err));
+      });
+    }
+  </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
